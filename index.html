@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="shower/themes/ribbon/styles/styles.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
     <style>
         .shower {
             --slide-ratio: calc(16 / 9);
@@ -48,7 +51,6 @@
         }
 
         .slide .shout {
-            font-size: 110px;
             font-size: 56px;
         }
 
@@ -70,25 +72,70 @@
             box-shadow: inset 0 -345px 25px -300px #ffffff;
         }
 
+        .img-wrap.top:before {
+            box-shadow: inset 0 345px 25px -300px #ffffff;
+        }
+
+
+        .img-wrap.vertical:before {
+            box-shadow: inset 0 345px 25px -300px #ffffff, inset 0 -345px 25px -300px #ffffff;
+        }
+
+        .img-wrap.top-right:before {
+            box-shadow: inset 345px -345px 20px -300px #ffffff;
+        }
+
+        .img-wrap.radius {
+            border-radius: 3px;
+        }
+
         .img-wrap img {
             max-width: 100%;
+        }
+
+        #mutation_observer > p {
+            line-height: 1.5em;
+        }
+
+
+
+        #Interface .img-wrap {
+            width: 50%;
+            max-height: 350px;
+            float: left;
+        }
+
+        .avatar {
+            float: left;
+            margin-right: 2em;
+        }
+
+        .slide::after {
+            z-index: 2;
         }
     </style>
     <script>
         window.addEventListener('load', function onLoad() {
           document.body.querySelectorAll('code').forEach(function onMatch(el) {
             el.innerHTML = el.innerHTML.replace(/^\s{12}/mg, '').trim()
-          })
+          });
+          document.querySelectorAll('.code').forEach(function (block) {
+            block.classList.add('javascript')
+            hljs.highlightBlock(block);
+          });
+          document.querySelectorAll('.hljs-comment').forEach(function (block) {
+            block.innerHTML = block.innerHTML.replace(/(\/\/ )(@[\w\d-]+)/, "$1<span class='code_meta_name'>$2</span>")
+          });
         });
     </script>
 </head>
 <body class="shower list">
-    <header class="caption">
+    <header class="caption" id="Header">
         <h1>UserScripts - Пользовательские скрипты</h1>
         <p>Зачем нужны, чем могут помочь и где они обитают</p>
     </header>
 
-    <section class="slide" id="title1">
+    <section class="slide" id="Hello">
         <div style="text-align: center; margin-top: 150px; font-size: 23px;">
             <h2 style="font-size: 56px">UserScripts - Пользовательские скрипты</h2>
             <p>Зачем нужны, чем могут помочь и где они обитают</p>
@@ -96,65 +143,89 @@
         </div>
     </section>
 
-    <section class="slide" id="hello">
+    <section class="slide" id="AboutMe">
         <div class="avatar">
-            <img src="./pictures/me2.png" width="300" alt="me">
+            <img src="./pictures/me2.png" width="300" alt="">
         </div>
         <div class="overflow_hidden">
             <h2 class="double_line">Котляров Евгений</h2>
             <ul class="size_32">
                 <li>
-                    <img src="./pictures/emoji/male-technologist.png" class="test-icon" alt="emoji male technologist"/>
+                    <img src="./pictures/emoji/male-technologist.png" class="test-icon" alt=""/>
                     Разработчик <span class="blue">ВКонтакте</span>
                 </li>
                 <li>
-                    <img src="./pictures/emoji/hammer.png" class="test-icon" alt="emoji hammer"/>
+                    <img src="./pictures/emoji/hammer.png" class="test-icon" alt=""/>
                     Отвечаю за платформу ботов
                 </li>
                 <li>
-                    <img src="./pictures/emoji/sparkles.png" class="test-icon" alt="emoji sparkles"/>
+                    <img src="./pictures/emoji/sparkles.png" class="test-icon" alt=""/>
                     Люблю делать жизнь проще
                 </li>
             </ul>
         </div>
-        <style>
-            .avatar {
-                float: left;
-                margin-right: 2em;
-            }
-        </style>
     </section>
 
-    <section class="slide" id="what">
+    <section class="slide" id="AboutUserScript">
         <h2>
             <img src="./pictures/emoji/female-teacher.png" class="test-icon" alt=""/>
             Что такое UserScript?
         </h2>
         <figure>
-            <blockquote class="next">JavaScript код, который хранится у пользователя и выполняет действия на определенных страницах</blockquote>
+            <blockquote class="next">JavaScript код, который хранится у пользователя и выполняет действия на определенных страницах.</blockquote>
         </figure>
     </section>
 
-    <section class="slide">
-        <h2>
+    <section class="slide" id="my_scripts">
+        <h2 class="shout">
             <img src="./pictures/emoji/thinking-face.png" class="test-icon" alt=""/>
             Зачем нужны?
         </h2>
-        <ol>
-            <li class="next">Автоматизация шаблонных действий</li>
-            <li class="next">Добавление функционала на сторонние сайты</li>
-            <li class="next">Исправление фич и багов</li>
-            <li class="next">Добавление функционала, непригодного для продакшна</li>
-        </ol>
     </section>
 
-    <section class="slide" id="what_can_do">
+    <section class="slide" id="my_api">
+        <h2>
+            Автоматизация шаблонных действий
+        </h2>
+        <div class="img-wrap" style="max-height: 375px; margin: auto;">
+            <img src="pictures/api.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="view">
+        <h2>
+            Парсинг и улучшение просмотра
+        </h2>
+        <div class="img-wrap" style="max-height: 375px; margin: auto;">
+            <img src="pictures/logs.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="filter">
+        <h2>
+            Упрощение и ускорение работы
+        </h2>
+        <div class="img-wrap top" style="max-height: 375px; margin: auto; overflow: hidden">
+            <img src="pictures/fast-help.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="lool">
+        <h2>
+            Функционал непригодный для продакшна
+        </h2>
+        <div class="img-wrap" style="max-height: 375px; margin: auto;">
+            <img src="pictures/im-filter.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="WhatCan">
         <h2>
             <img src="./pictures/emoji/face-with-monocle.png" class="test-icon" alt=""/>
             Что умеют?
         </h2>
         <ol>
-            <li class="next">Выполнять JS в контексте расширения</li>
+            <li class="next">Выполнять JavaScript</li>
             <li class="next">Вызывать API расширения</li>
             <li class="next">Делать всякие гадости с вашим сайтом</li>
         </ol>
@@ -163,13 +234,13 @@
         </div>
     </section>
 
-    <section class="slide" id="where">
+    <section class="slide" id="WhereDoTheyWork">
         <h2 class="shout">Где работают пользовательские скрипты?</h2>
     </section>
 
-    <section class="slide" id="where_exec_Greasemonkey">
+    <section class="slide" id="Greasemonkey">
         <h2>
-            <img src="./pictures/icons/Greasemonkey.png" class="test-icon" alt="Greasemonkey logo"/>
+            <img src="./pictures/icons/Greasemonkey.png" class="test-icon" alt=""/>
             Greasemonkey
         </h2>
         <ol>
@@ -181,9 +252,20 @@
         </blockquote>
     </section>
 
-    <section class="slide" id="where_exec_Tampermonkey">
+    <section class="slide" id="ChromeUserScripts">
         <h2>
-            <img src="./pictures/icons/Tampermonkey_logo.png" class="test-icon" alt="Tampermonkey logo"/>
+            <img src="./pictures/icons/google-chrome.png" class="test-icon" alt=""/>
+            Google Chrome
+        </h2>
+        <p>C февраля 2009 года в Google Chrome появилась встроенная поддержка пользовательских скриптов в формате Greasemonkey, но позже установка пользовательских скриптов с посторонних доменов была отключена.</p>
+        <div class="img-wrap" style="max-height: 250px;">
+            <img src="pictures/chrome-us.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="Tampermonkey">
+        <h2>
+            <img src="./pictures/icons/Tampermonkey_logo.png" class="test-icon" alt=""/>
             Tampermonkey
         </h2>
         <ol>
@@ -195,159 +277,213 @@
         </blockquote>
     </section>
 
-    <section class="slide" id="design">
-        <h2>
-            <img src="./pictures/emoji/detective.png" class="test-icon" alt="google chrome logo"/>
-            Интерфейс
-        </h2>
-        <div style="overflow: hidden; width: 100%; height: 340px;">
-            <div class="img-wrap">
-                <img src="pictures/greasemonkey.png" alt="chome block userscript"/>
-            </div>
-            <div class="img-wrap">
-                <img src="pictures/tampermonkey.png" alt="chome block userscript"/>
-            </div>
-        </div>
-        <style>
-            #design .img-wrap {
-                width: 50%;
-                max-height: 350px;
-                float: left;
-                border-radius: 3px;
-            }
-
-            #design .img-wrap:before {
-                box-shadow: inset 345px -345px 20px -300px #ffffff;
-            }
-        </style>
-    </section>
-
-    <section class="slide" id="where_browser">
-        <h2>
-            <img src="./pictures/icons/google-chrome.png" class="test-icon" alt="google chrome logo"/>
-            Google Chrome
-        </h2>
-        <p>C февраля 2009 года в Google Chrome появилась встроенная поддержка пользовательских скриптов в формате Greasemonkey, но позже установка пользовательских скриптов с посторонних доменов была отключена.</p>
-        <div class="img-wrap" style="max-height: 250px;">
-            <img src="pictures/chrome-us.png" alt="chome block userscript" width="948"/>
-        </div>
-    </section>
-
-    <section class="slide" id="where_bookmarklets">
+    <section class="slide" id="Bookmarklets">
         <h2>
             <img src="./pictures/emoji/white-medium-star.png" class="test-icon" alt=""/>
             В закладках
         </h2>
         <ol>
-            <li>Букмарклеты - JS в закладках</li>
-            <li>Запускается на любой странице при нажатии на закладку</li>
-            <li>Нужно вызывать панель закладок</li>
+            <li>Букмарклет - JavaScript запускаемый при открытии закладки</li>
         </ol>
         <div class="img-wrap">
-            <img src="pictures/favlets.png" alt="chome block userscript" width="948"/>
+            <img src="pictures/favlets.png" alt=""/>
         </div>
     </section>
 
-    <section class="slide" id="how_create_title">
-        <h2 class="shout">Из чего состоит?</h2>
-    </section>
-
-    <section class="slide" id="how_create">
+    <section class="slide" id="Interface">
         <h2>
-            <img src="./pictures/emoji/memo.png" class="test-icon" alt=""/>
-            Состав:
+            <img src="./pictures/emoji/detective.png" class="test-icon" alt=""/>
+            Интерфейс
         </h2>
-        <ol>
-            <li>Файл с «.user.js» в конце названия</li>
-            <li>Метаданные</li>
-            <li>JavaScript Код</li>
-        </ol>
+        <div style="overflow: hidden; width: 100%; height: 340px;">
+            <div class="img-wrap top-right radius">
+                <img src="pictures/greasemonkey.png" alt=""/>
+            </div>
+            <div class="img-wrap top-right radius">
+                <img src="pictures/tampermonkey.png" alt=""/>
+            </div>
+        </div>
     </section>
 
-    <section class="slide" id="how_create_frame">
+    <section class="slide" id="CreateTitle">
+        <h2 class="shout">Создадим новый скрипт?</h2>
+    </section>
+
+    <section class="slide" id="CreateScreen">
+        <h2>
+            <img src="./pictures/emoji/pencil.png" class="test-icon" alt=""/>
+            Интерфейс редактора Tampermonkey
+        </h2>
+        <div class="img-wrap" style="max-height: 450px; margin: -30px auto auto auto; overflow: hidden">
+            <img src="pictures/meta1.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="MetaData">
         <h2>
             <img src="./pictures/emoji/gear.png" class="test-icon" alt=""/>
             Метаданные
         </h2>
         <code class="code code_comment">
             // ==UserScript==
-            // <span class="code_meta_name">@name</span>         Название скрипта
-            // <span class="code_meta_name">@namespace</span>    http://domain.com/
-            // <span class="code_meta_name">@version</span>      0.1
-            // <span class="code_meta_name">@description</span>  Описание
-            // <span class="code_meta_name">@author</span>       Flyink13
-            // <span class="code_meta_name">@match</span>        https://*.domain.com/
-            // <span class="code_meta_name">@require</span>      http://www.example.com/example.js
-            // <span class="code_meta_name">@resource</span>     resourceName http://www.example.com/example.png
-            // <span class="code_meta_name">@run-at</span>       document-end|document-start|document-idle
-            // <span class="code_meta_name">@grant</span>        GM.xmlHttpRequest
+            // @name         New Userscript
+            // @namespace    http://tampermonkey.net/
+            // @version      0.1
+            // @description  try to take over the world!
+            // @author       You
+            // @match        https://vk.com/
+            // @grant        none
             // ==/UserScript==
-            // Ваш скрипт
         </code>
-        <a target="_blank" href="https://wiki.greasespot.net/Metadata_Block">Подробнее о Метаданных пользовательских скриптов</a>
+        <br>
+        Подробнее о Метаданных пользовательских скриптов:
+        <a target="_blank" href="https://www.tampermonkey.net/documentation.php">tampermonkey.net/documentation.php</a>
     </section>
 
-    <section class="slide" id="meta_name">
+    <section class="slide" id="MetaName">
         <h2>
             <img src="./pictures/emoji/label.png" class="test-icon" alt=""/>
-            Описание скрипта
+            Задаем описание скрипта
         </h2>
         <code class="code code_comment">
-            // <span class="code_meta_name">@name</span>         Название скрипта
-            // <span class="code_meta_name">@namespace</span>    http://domain.com/
+            // @name         Название скрипта
+            // @namespace    http://domain.com/
             // name + namespace - формируют id скрипта
-            // <span class="code_meta_name">@version</span>      0.1
-            // <span class="code_meta_name">@description</span>  Описание
-            // <span class="code_meta_name">@updateURL</span>    https://openuserjs.org/meta/....meta.js
+            // @version      0.1
+            // @description  Описание
+            // @author       Автор
         </code>
+    </section>
+
+    <section class="slide" id="EditCode">
+        <h2 class="shout">Пишем код?</h2>
+    </section>
+
+    <section class="slide" id="TryWriteCodeLog">
+        <h2>
+            <img src="./pictures/emoji/pencil.png" class="test-icon" alt=""/>
+            Пробуем... Обновляем страницу...
+        </h2>
+        <code class="code code_comment">
+            (function() {
+                'use strict';
+                console.log('hello', location.pathname);
+            })();
+        </code>
+    </section>
+
+    <section class="slide" id="Hello2x">
+        <h2>
+             ... и видим несколько логов
+            <img src="./pictures/emoji/flushed-face.png" class="test-icon" alt=""/>
+        </h2>
+        <div class="img-wrap" style="max-height: 350px">
+            <img src="pictures/hello2x.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="Frame">
+        <h2>
+            <img src="./pictures/emoji/ghost.png" class="test-icon" alt=""/>
+            Все дело в iframe
+        </h2>
+        <div class="img-wrap" style="max-height: 350px">
+            <img src="pictures/frame.png" alt=""/>
+        </div>
+        PS: Тут в хроме можно переключать контекст
     </section>
 
     <section class="slide" id="meta_include">
         <h2>
             <img src="./pictures/emoji/label.png" class="test-icon" alt=""/>
-            Определение набора страниц
+            Определяем набор страниц
         </h2>
         <code class="code code_comment">
             // Добавить
-            // <span class="code_meta_name">@include</span>      https://domain.com/*
-            // <span class="code_meta_name">@match</span>        https://*.domain.com/
+            // @include      https://domain.com/*
             // Исключить
-            // <span class="code_meta_name">@exclude</span>      https://domain.com/image/
+            // @exclude      https://domain.com/image/
             // Отключить в фреймах
-            // <span class="code_meta_name">@noframes</span>
+            // @noframes
         </code>
     </section>
 
-    <section class="slide" id="run_at_types">
-        <h2>@run-at</h2>
-        <ul>
-            <li><b>document-end</b> - после загрузки страницы, но до загрузки других ресурсов</li>
-            <li><b>document-start</b> - до загрузки документа и до запуска любых сценариев</li>
-            <li><b>document-idle</b> - После загрузки документа и запуска сценариев страницы</li>
-        </ul>
+    <section class="slide" id="Hello1x">
+        <h2>
+            Добавляем @noframes и проверяем
+        </h2>
+        <div class="img-wrap next" style="max-height: 350px">
+            <img src="pictures/hello1x.png" alt=""/>
+        </div>
     </section>
 
-    <section class="slide" id="meta_grant">
+    <section class="slide" id="TryWriteCodePageFn">
+        <h2>
+            <img src="./pictures/emoji/pencil.png" class="test-icon" alt=""/>
+            Пробуем вызвать функцию сайта...
+        </h2>
+        <code class="code code_comment">
+            (function() {
+                'use strict';
+                </span>
+                const onDone = console.log.bind(console);
+                ajax.post('https://vk.com/foaf.php?id=1', {}, { onDone });
+            })();
+        </code>
+    </section>
+
+    <section class="slide" id="ContextFail">
+        <h2>
+            Greasemonkey работает в своем контексте
+        </h2>
+        <div class="img-wrap" style="max-height: 350px">
+            <img src="pictures/ContextFail.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="InjectCode">
+        <h2>
+            Встраиваем код в страницу
+        </h2>
+        Еще можно использовать @grant GM.unsafeWindow, но это не безопасно
+        <code class="code code_comment">
+            (function injectScript(fn) {
+                var script = document.createElement('script');
+                script.textContent = '(' + fn + ')();';
+                script.id = fn.name;
+                document.head.appendChild(script);
+            })(function TryAjax() {
+                const onDone = console.log.bind(console);
+                ajax.post('https://vk.com/foaf.php?id=1', {}, { onDone });
+            });
+        </code>
+    </section>
+
+    <section class="slide" id="ApiQ">
+        <h2 class="shout">А если мне с другого сайта?</h2>
+    </section>
+
+    <section class="slide" id="MetaGrant">
         <h2>
             <img src="./pictures/emoji/wrench.png" class="test-icon" alt=""/>
-            Дополнительное API
+            Можно использовать API расширения
         </h2>
         <code class="code code_comment">
             // Получение метаданных скрипта:
-            // <span class="code_meta_name">@grant</span>        GM.info
+            // @grant        GM.info
             // Аналог localStorage в контексте расширения:
-            // <span class="code_meta_name">@grant</span>        GM.deleteValue/getValue/setValue/listValues
+            // @grant        GM.deleteValue/getValue/setValue/listValues
             // Вывод уведомлений:
-            // <span class="code_meta_name">@grant</span>        GM.notification
+            // @grant        GM.notification
             // Открытие новой вкладки:
-            // <span class="code_meta_name">@grant</span>        GM.openInTab
+            // @grant        GM.openInTab
             // Копирование в буффер обмена
-            // <span class="code_meta_name">@grant</span>        GM.setClipboard
+            // @grant        GM.setClipboard
         </code>
     </section>
 
     <section class="slide" id="meta_resource">
-        <h2>GM.getResourceUrl</h2>
+        <h2>Запрос ресурсов с другого сайта</h2>
         <code class="code code_comment">
             // ==UserScript==
             // @name Image resource example
@@ -355,7 +491,7 @@
             // @grant GM.getResourceUrl
             // ==/UserScript==
             <span />
-            (async function() {
+            (async () => {
                 let img = document.createElement("img");
                 img.src = await GM.getResourceUrl("logo");
                 document.body.appendChild(img);
@@ -364,44 +500,110 @@
     </section>
 
     <section class="slide" id="meta_resource_xhr">
-        <h2>GM.xmlHttpRequest</h2>
+        <h2>Запрос к другому сайту</h2>
         <code class="code code_comment">
             GM.xmlHttpRequest({
-              method: "POST",
-              url: "http://www.example.net/login",
-              data: "username=flyink13&password=zhylikNeVorui",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              onload: function(response) {
-                if (response.responseText.indexOf("Logged in as") > -1) {
-                  location.href = "http://www.example.net/dashboard";
-                }
+              method: "GET",
+              url: "http://api.vk.com/method/users.get",
+              onload: ({ response }) => {
+                console.log(response);
               }
             });
         </code>
     </section>
 
-    <section class="slide" id="helpers">
+    <section class="slide" id="meta_resource_xhr_access">
+        <h2>Tampermonkey без @connect запретит</h2>
+
+        <div class="img-wrap vertical" style="max-height: 350px; margin: auto;max-width: 90%;">
+            <img src="pictures/xhr-access-1.png" alt=""/>
+        </div>
+    </section>
+
+    <section class="slide" id="run_at_types">
+        <h2>@run-at</h2>
+        <ul>
+            <li><b>document-start</b> - До запуска любых сценариев</li>
+            <li><b>document-body</b> - После появлениея body</li>
+            <li><b>document-end</b> - После загрузки страницы</li>
+            <li><b>document-idle</b> - После запуска сценариев страницы</li>
+            <li><b>context-menu</b> - При вызове контекстного меню [Только для Chrome]</li>
+        </ul>
+    </section>
+
+    <section class="slide" id="my-context-menu-ex">
         <h2>
-            <img src="./pictures/emoji/hocho.png" class="test-icon" alt=""/>
-            Наши помощники в JS
+            Если хотим контекстное меню
         </h2>
-        <ol>
-            <li>MutationObserver - Отслеживаем мутации</li>
-            <li>window.addEventListener - Реагируем на действия пользователя</li>
-            <li>setInterval - Реагируем по времени</li>
-            <li>Proxy, getter и setter - Отслеживаем взаимодействие с объектами</li>
-            <li>Оборачиваем и заменям функции</li>
-        </ol>
+        <div class="img-wrap vertical" style="max-height: 330px">
+            <img src="./pictures/ContextEx.png" style="margin-top: -50px"/>
+        </div>
+    </section>
+
+    <section class="slide" id="context-menu">
+        <h2>
+            @run-at context-menu
+        </h2>
+        <code class="code">
+            // ==UserScript==
+            // @name            onContextMenu > doSomeMagic
+            // @author          FlyInk13
+            // @include         https://vk.com/*
+            // @run-at          context-menu
+            // ==/UserScript==
+            <span></span>
+            (function onContextMenu() {
+                alert('doSomeMagic');
+            })();
+        </code>
+    </section>
+
+    <section class="slide" id="my-context-menu">
+        <h2>
+            Либо отдельным расширением
+        </h2>
+        <div class="img-wrap vertical" style="max-height: 330px">
+            <img src="./pictures/my-context-menu.png" style="margin-top: -50px"/>
+        </div>
+    </section>
+
+    <section class="slide" id="MenuEx">
+        <h2>
+            Если не хотим встаивать кнопки
+        </h2>
+        <div class="img-wrap" style="max-height: 400px">
+            <img src="./pictures/MenuEx.png"/>
+        </div>
+    </section>
+
+    <section class="slide" id="GM_registerMenuCommand">
+        <h2>
+            @grant GM_registerMenuCommand
+        </h2>
+        <code class="code">
+            // ==UserScript==
+            // @name       MenuExample
+            // @include    https://vk.com/*
+            // @grant      GM_registerMenuCommand
+            // ==/UserScript==
+            <span></span>
+            GM_registerMenuCommand('doSomeMagic', function() {
+                alert('doSomeMagic');
+            }, 'r');
+        </code>
+    </section>
+
+    <section class="slide" id="helpers">
+        <h2 class="shout">
+            Наши помощники в JS
+            <img src="./pictures/emoji/hocho.png" class="test-icon" alt=""/>
+        </h2>
     </section>
 
     <section class="slide" id="mutation_observer">
         <h2>MutationObserver</h2>
+        <p>Наблюдаем за изменениями содержимого страницы и находим нужные нам элементы:</p>
         <code class="code code_comment">
-            // Когда нужно что-то отрисовать в определенных елементах
-            searchGreenElements(document.body);
-            <span/>
             new MutationObserver(function onMutations(mutations) {
                 mutations.forEach(function onMutation(mutation) {
                     searchGreenElements(mutation.target);
@@ -410,19 +612,15 @@
                 subtree: true,
                 childList: true,
             });
-            <span/>
-            function searchGreenElements(el) {
-                el.querySelectorAll('.green').forEach(function onMatchElement(el) {
-                  el.style.background = 'red';
-                });
-            }
+            </span>
+            searchGreenElements(document.body);
         </code>
     </section>
 
     <section class="slide" id="addEventListener">
-        <h2>window.addEventListener</h2>
+        <h2>window.addEventListener + event.target</h2>
+        <p>Реагируем нужные нам действия:</p>
         <code class="code code_comment">
-            // Когда нужно что-то обновить при действии пользователя
             window.addEventListener('keydown', function onKeyDown(event) {
                 if (event.target.classList.contains('support_message_input')) {
                     showAndFilterHelpList(event.target);
@@ -431,38 +629,10 @@
         </code>
     </section>
 
-    <section class="slide" id="setInterval">
-        <h2>setInterval</h2>
-        <code class="code code_comment">
-            // Когда нужно что-то сделать по интервалу
-            setInterval(function onTick() {
-                window.postMessage('4 8 15 16 23 42');
-            }, 108);
-        </code>
-    </section>
-
-    <section class="slide" id="inject">
-        <h2>
-            <img src="./pictures/emoji/tractor.png" class="test-icon" alt=""/>
-            Переходим в scope страницы
-        </h2>
-        <code class="code code_comment">
-            // Встраиваем наш скрипт в станицу
-            (function injectScript(fn) {
-                var script = document.createElement('script');
-                script.textContent = '(' + fn + ')();';
-                script.id = fn.name;
-                document.head.appendChild(script);
-            })(function FastGroupTemplates () {
-                // наш код
-            });
-        </code>
-    </section>
-
     <section class="slide" id="Proxy">
         <h2>Proxy, getter и setter</h2>
+        Ловим чтение и запись в обьектах:
         <code class="code code_comment">
-            // Когда нужно заменять объект или отслеживать его
             Object.defineProperty(store, "adsLists", {
                 set: function() {
                     // хе-хе
@@ -478,15 +648,15 @@
     <section class="slide" id="functionReplace">
         <h2>
             <img src="./pictures/emoji/flying-saucer.png" class="test-icon" alt=""/>
-            Замена функций
+            Оборачиваем функций
         </h2>
+        Заменяем аргументы и результаты функций:
         <code class="code code_comment">
-            // Когда нужно изменить поведение функции
             ajax.post = (function replaceFunction(ajaxPost) {
                 return function ajaxPostFake() {
                     var query = arguments[1];
-                    if (/^лол$/i.test(query.msg)) {
-                        query.msg = 'Смеюсь';
+                    if (/^хз/i.test(query.msg)) {
+                        query.msg = 'Не знаю';
                     }
                     return ajaxPost.apply(this, arguments);
                 }
@@ -494,17 +664,68 @@
         </code>
     </section>
 
+    <section class="slide" id="Save">
+        <h2 class="shout">А куда сохранить?</h2>
+    </section>
+
     <section class="slide" id="storage">
         <h2>
             <img src="./pictures/emoji/anchor.png" class="test-icon" alt=""/>
-            Где они обитают?
+            Места обитания
         </h2>
         <ol>
             <li><a href="https://openuserjs.org/" target="_blank">OpenUserJS</a></li>
             <li><a href="https://gist.github.com/" target="_blank">gist.github.com</a></li>
-            <li><a href="https://habr.com/ru/post/226053/" target="_blank">Другие источники</a></li>
-            <li><a href="#where_bookmarklets" target="_blank">В закладках</a></li>
+            <li><a href="https://habr.com/ru/post/226053/" target="_blank">Альтернативы UserScripts.org</a></li>
+            <li>На любом сайте с «*.user.js» в конце ссылки</li>
         </ol>
+    </section>
+
+    <section class="slide" id="Update">
+        <h2 class="shout">А как обновлять?</h2>
+    </section>
+
+
+    <section class="slide" id="UpdateMeta">
+        <h2>
+            Для этого можно указать @updateURL
+        </h2>
+        <code class="code">
+            // @updateURL https://openuserjs.org/....js
+        </code>
+    </section>
+
+    <section class="slide" id="view_this">
+        <div class="avatar qr">
+            <img src="./pictures/qr-ifx-su-p1.png" width="300" alt="">
+        </div>
+        <div class="overflow_hidden" style="padding: 1em">
+            <ul>
+                <li>
+                    <img src="./pictures/icons/vk.png" class="test-icon" alt=""/>
+                    ВКонтакте: <a href="https://vk.com/eee" target="_blank">@eee</a></li>
+                <li>
+                    <img src="./pictures/icons/tg.jpeg" class="test-icon" alt=""/>
+                    Telegram: <a href="https://t.me/flyink" target="_blank">@flyink13</a>
+                </li>
+                <li>
+                    <img src="./pictures/icons/twitter.png" class="test-icon" alt=""/>
+                    Twitter: <a href="https://twitter.com/flyink13" target="_blank">@flyink13</a>
+                </li>
+                <li>
+                    <img src="./pictures/icons/github.png" class="test-icon" alt=""/>
+                    GitHub: <a href="https://github.com/FlyInk13" target="_blank">@flyink13</a>
+                </li>
+                <li>
+                    <img src="./pictures/icons/openuserjs-3.png" class="test-icon round" alt=""/>
+                    OpenUserJS: <a href="https://openuserjs.org/users/flyink13" target="_blank">@flyink13</a>
+                </li>
+                <li>
+                    <img src="./pictures/icons/flyink.jpg" class="test-icon round" alt=""/>
+                    Мой сайт: <a href="https://flyink.ru/" target="_blank">flyink.ru</a>
+                </li>
+            </ul>
+        </div>
     </section>
 
     <section class="slide" id="source">
@@ -515,40 +736,6 @@
             <li><a href="https://habr.com/ru/post/39431/" target="_blank">Укрощаем GreaseMonkey</a></li>
             <li><a href="https://ru.wikipedia.org/wiki/%D0%91%D1%83%D0%BA%D0%BC%D0%B0%D1%80%D0%BA%D0%BB%D0%B5%D1%82" target="_blank">Букмарклет - wiki</a></li>
         </ol>
-    </section>
-
-
-    <section class="slide" id="view_this">
-        <div class="avatar qr">
-            <img src="./pictures/qr-ifx-su-p1.png" width="300" alt="qr code">
-        </div>
-        <div class="overflow_hidden" style="padding: 1em">
-            <ul>
-                <li>
-                    <img src="./pictures/icons/vk.png" class="test-icon" alt="site icon vk"/>
-                    ВКонтакте: <a href="https://vk.com/eee" target="_blank">@eee</a></li>
-                <li>
-                    <img src="./pictures/icons/tg.jpeg" class="test-icon" alt="site icon telegram"/>
-                    Telegram: <a href="https://t.me/flyink" target="_blank">@flyink13</a>
-                </li>
-                <li>
-                    <img src="./pictures/icons/twitter.png" class="test-icon" alt="site icon twitter"/>
-                    Twitter: <a href="https://twitter.com/flyink13" target="_blank">@flyink13</a>
-                </li>
-                <li>
-                    <img src="./pictures/icons/github.png" class="test-icon" alt="site icon github"/>
-                    GitHub: <a href="https://github.com/FlyInk13" target="_blank">@flyink13</a>
-                </li>
-                <li>
-                    <img src="./pictures/icons/openuserjs-3.png" class="test-icon round" alt="site icon openuserjs"/>
-                    OpenUserJS: <a href="https://openuserjs.org/users/flyink13" target="_blank">@flyink13</a>
-                </li>
-                <li>
-                    <img src="./pictures/icons/flyink.jpg" class="test-icon round" alt="site icon flyink"/>
-                    Мой сайт: <a href="https://flyink.ru/" target="_blank">flyink.ru</a>
-                </li>
-            </ul>
-        </div>
     </section>
 
     <footer class="badge">
