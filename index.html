@@ -208,7 +208,7 @@
             Что такое UserScript?
         </h2>
         <figure>
-            <blockquote class="next">JavaScript код, который хранится у пользователя и выполняет действия на определенных страницах.</blockquote>
+            <blockquote class="next">Код, который хранится у пользователя и выполняет заданные действия.</blockquote>
         </figure>
     </section>
 
@@ -551,7 +551,7 @@
             (function() {
                 'use strict';
                 <span></span>
-                const onDone = console.log.bind(console);
+                const onDone = () => { document.body.style = 'green'; };
                 ajax.post('https://vk.com/foaf.php?id=1', {}, { onDone });
             })();
         </code>
@@ -598,7 +598,7 @@
                 script.id = fn.name;
                 document.head.appendChild(script);
             })(function TryAjax() {
-                const onDone = console.log.bind(console);
+                const onDone = () => { document.body.style = 'green'; };
                 ajax.post('https://vk.com/foaf.php?id=1', {}, { onDone });
             });
         </code>
@@ -609,8 +609,13 @@
     </section>
 
     <section class="slide" id="mutation_observer">
-        <h2>MutationObserver</h2>
-        <p class="note">Помогает следить за изменением контента на странице</p>
+        <h2>
+            <img src="./pictures/emoji/sparkles.png" class="test-icon" alt=""/>
+            MutationObserver
+        </h2>
+        <p class="note">
+            Помогает отслеживать изменения в дереве элементов
+        </p>
         <code class="code code_comment">
             searchGreenElements(document.body);
             <span></span>
@@ -625,15 +630,66 @@
         </code>
     </section>
 
+
+    <section class="slide" id="addEventListener">
+        <h2>window.addEventListener + event.target</h2>
+        <p class="note">Реагируем нужные нам действия</p>
+        <code class="code code_comment">
+            window.addEventListener('keydown', function onKeyDown(event) {
+                if (event.target.classList.contains('support_input')) {
+                    showAndFilterHelpList(event.target);
+                }
+            });
+        </code>
+    </section>
+
+    <section class="slide" id="Proxy">
+        <h2>Proxy, getter и setter</h2>
+        <p class="note">Ловим чтение и запись в обьектах</p>
+        <code class="code code_comment">
+            Object.defineProperty(store, "adsLists", {
+                set: function() {
+                    // хе-хе
+                    return [];
+                },
+                get: function() {
+                    return [];
+                }
+            });
+        </code>
+    </section>
+
+    <section class="slide" id="functionReplace">
+        <h2>
+            <img src="./pictures/emoji/flying-saucer.png" class="test-icon" alt=""/>
+            Оборачиваем функций
+        </h2>
+        <p class="note">Заменяем аргументы и результаты функций</p>
+        <code class="code code_comment">
+            ajax.post = (function replaceFunction(ajaxPost) {
+                return function ajaxPostFake() {
+                    var query = arguments[1];
+                    if (/^хз/i.test(query.msg)) {
+                        query.msg = 'Не знаю';
+                    }
+                    return ajaxPost.apply(this, arguments);
+                }
+            })(ajax.post);
+        </code>
+    </section>
+
     <section class="slide" id="ApiQ">
-        <h2 class="shout">Могу ли я подгружать данные с других сайтов?</h2>
+        <h2 class="shout">А можно вызывать API расширений?</h2>
     </section>
 
     <section class="slide" id="MetaGrant">
         <h2>
-            Можно использовать API расширения
+            Расширения предоставляют свое API
             <img src="./pictures/emoji/wrench.png" class="test-icon" alt=""/>
         </h2>
+        <p class="note">
+            С помощью @grant вы перечисляете все функции, которые хотите вызвать
+        </p>
         <code class="code code_comment">
             // Получение метаданных скрипта:
             // @grant        GM.info
@@ -695,7 +751,7 @@
     </section>
 
     <section class="slide" id="ExButtonsQ">
-        <h2 class="shout">Могу ли я управлять меню расширения?</h2>
+        <h2 class="shout">Могу ли я добавить элементы  в меню расширения?</h2>
     </section>
 
     <section class="slide" id="MenuEx">
@@ -725,7 +781,7 @@
     </section>
 
     <section class="slide" id="ContextMenuQ">
-        <h2 class="shout">А контекстным меню?</h2>
+        <h2 class="shout">А работать с контекстным меню?</h2>
     </section>
 
     <section class="slide" id="ContextMenuExample">
@@ -767,52 +823,6 @@
         </ul>
     </section>
 
-    <section class="slide" id="addEventListener">
-        <h2>window.addEventListener + event.target</h2>
-        <p class="note">Реагируем нужные нам действия</p>
-        <code class="code code_comment">
-            window.addEventListener('keydown', function onKeyDown(event) {
-                if (event.target.classList.contains('support_input')) {
-                    showAndFilterHelpList(event.target);
-                }
-            });
-        </code>
-    </section>
-
-    <section class="slide" id="Proxy">
-        <h2>Proxy, getter и setter</h2>
-        <p class="note">Ловим чтение и запись в обьектах</p>
-        <code class="code code_comment">
-            Object.defineProperty(store, "adsLists", {
-                set: function() {
-                    // хе-хе
-                    return [];
-                },
-                get: function() {
-                    return [];
-                }
-            });
-        </code>
-    </section>
-
-    <section class="slide" id="functionReplace">
-        <h2>
-            <img src="./pictures/emoji/flying-saucer.png" class="test-icon" alt=""/>
-            Оборачиваем функций
-        </h2>
-        <p class="note">Заменяем аргументы и результаты функций</p>
-        <code class="code code_comment">
-            ajax.post = (function replaceFunction(ajaxPost) {
-                return function ajaxPostFake() {
-                    var query = arguments[1];
-                    if (/^хз/i.test(query.msg)) {
-                        query.msg = 'Не знаю';
-                    }
-                    return ajaxPost.apply(this, arguments);
-                }
-            })(ajax.post);
-        </code>
-    </section>
 
     <section class="slide" id="Save">
         <h2 class="shout">Куда можно сохранить скрипт?</h2>
@@ -827,7 +837,7 @@
             <li><a href="https://openuserjs.org/" target="_blank">OpenUserJS</a></li>
             <li><a href="https://gist.github.com/" target="_blank">gist.github.com</a></li>
             <li><a href="https://www.tampermonkey.net/scripts.php" target="_blank">Альтернативы UserScripts.org</a></li>
-            <li>На любом сайте с «*.user.js» в конце ссылки</li>
+            <li>На своем сайте с «*.user.js» в конце ссылки</li>
         </ol>
     </section>
 
@@ -848,18 +858,18 @@
     </section>
 
     <section class="slide" id="MoreUserScripts">
-        <h2 class="shout">А без расширений?</h2>
+        <h2 class="shout">А есть ли жизнь без расширений?</h2>
     </section>
 
     <section class="slide" id="Bookmarklets">
         <h2>
             <img src="./pictures/emoji/white-medium-star.png" class="test-icon" alt=""/>
-            В закладках
+            Букмарклеты
         </h2>
-        <ol>
-            <li>Букмарклет - JavaScript запускаемый при открытии закладки</li>
-        </ol>
-        <div class="img-wrap">
+        <p class="note">
+            Закладки, в адресе которых прописан JavaScript код, выполняемый при их открытии
+        </p>
+        <div class="img-wrap move-top" style="max-height: 300px;">
             <img src="pictures/favlets.png" alt=""/>
         </div>
     </section>
@@ -910,8 +920,8 @@
         <h2>
             Кнопки в Touch Bar
         </h2>
-        <div class="img-wrap no-shadow">
-            <img src="pictures/TouchBar.png" alt="" height="60" style="max-width: initial; height: 30px"/>
+        <div class="img-wrap radius vertical" style="max-height: 400px;">
+            <img src="pictures/TouchBar.png" alt="" style="margin-top: -100px;"/>
         </div>
     </section>
 
