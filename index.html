@@ -16,11 +16,18 @@
 
         .slide code {
             font-family: monospace;
-            font-size: 0.7em;
+            font-size: 0.8em;
             line-height: 1.1em;
             display: block;
             white-space: pre;
             padding: 1em 1em;
+        }
+
+        .slide .code .hljs-comment {
+            color: var(--color-grey);
+        }
+        .slide .code .code_meta_name {
+            color: var(--color-blue);
         }
 
         .test-icon {
@@ -78,16 +85,34 @@
             box-shadow: inset 345px -345px 20px -300px #ffffff;
         }
 
+        .img-wrap.outer-shadow div {
+            box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.2);
+        }
+
         .img-wrap.no-shadow:before {
             box-shadow: none;
         }
 
-        .img-wrap.radius {
+        .img-wrap.height {
+            max-height: 100%;
+        }
+
+        .img-wrap.radius  {
             border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .img-wrap.radius div {
+            border-radius: 3px;
+            overflow: hidden;
         }
 
         .img-wrap img {
             max-width: 100%;
+        }
+
+        .img-wrap.move-top {
+            margin-top: -1em;
         }
 
         #mutation_observer > p {
@@ -107,6 +132,17 @@
 
         .slide::after {
             z-index: 2;
+        }
+
+        .slide p.bottom-note {
+            margin: 24px 0px;
+            line-height: 1.4em;
+            color: var(--color-grey);
+        }
+
+        .slide blockquote {
+            line-height: 1.5em;
+            font-size: 0.9em;
         }
     </style>
     <script>
@@ -139,23 +175,28 @@
     </section>
 
     <section class="slide" id="AboutMe">
-        <div class="avatar radius img-wrap no-shadow" style="max-height: 450px;">
-            <img src="./pictures/me2.png" alt="" style="width: 300px">
-        </div>
         <div class="overflow_hidden">
-            <h2 class="double_line">Котляров Евгений</h2>
+            <h2 class="double_line">
+                <img src="./pictures/icons/me.jpg" class="test-icon" alt="" style="border-radius: 50px"/>
+                Котляров Евгений
+            </h2>
             <ul class="size_32">
-                <li>
-                    <img src="./pictures/emoji/male-technologist.png" class="test-icon" alt=""/>
+                <li class="next">
                     Разработчик <span class="blue">ВКонтакте</span>
+                    <img src="./pictures/icons/vk.png" class="test-icon" alt=""/>
                 </li>
-                <li>
-                    <img src="./pictures/emoji/hammer.png" class="test-icon" alt=""/>
+                <li class="next">
                     Отвечаю за платформу ботов
+                    <img src="./pictures/emoji/robot.png" class="test-icon" alt=""/>
                 </li>
-                <li>
-                    <img src="./pictures/emoji/sparkles.png" class="test-icon" alt=""/>
-                    Люблю делать жизнь проще
+                <li class="next">
+                    Делаю расширения,
+                    <span class="next">сервисы, </span>
+                    <span class="next">ботов</span>
+                    <span class="next">
+                        и пользовательские скипты
+                        <img src="./pictures/emoji/sparkles.png" class="test-icon" alt=""/>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -207,7 +248,7 @@
 
     <section class="slide" id="lool">
         <h2>
-            Функционал непригодный для продакшна
+            Сложный для реализации функционал
         </h2>
         <div class="img-wrap" style="max-height: 375px; margin: auto;">
             <img src="pictures/im-filter.png" alt=""/>
@@ -252,7 +293,7 @@
             <img src="./pictures/icons/google-chrome.png" class="test-icon" alt=""/>
             Google Chrome
         </h2>
-        <p>C февраля 2009 года в Google Chrome появилась встроенная поддержка пользовательских скриптов в формате Greasemonkey, но позже установка пользовательских скриптов с посторонних доменов была отключена.</p>
+        <p>С февраля 2009 года в Google Chrome появилась встроенная поддержка пользовательских скриптов в формате Greasemonkey, но позже установка пользовательских скриптов с посторонних доменов была отключена.</p>
         <div class="img-wrap" style="max-height: 250px;">
             <img src="pictures/chrome-us.png" alt="chome block userscript"/>
         </div>
@@ -366,8 +407,9 @@
             </tr>
             </tbody></table>
 
-
-        <a href="https://openuserjs.org/about/Userscript-Beginners-HOWTO" target="_blank">openuserjs.org/about/Userscript-Beginners-HOWTO</a>
+        <p class="bottom-note">
+            <a href="https://openuserjs.org/about/Userscript-Beginners-HOWTO" target="_blank">openuserjs.org/about/Userscript-Beginners-HOWTO</a>
+        </p>
     </section>
 
     <section class="slide splitImageView" id="Interface">
@@ -415,9 +457,10 @@
             // @grant        none
             // ==/UserScript==
         </code>
-        <br>
-        Подробнее о Метаданных пользовательских скриптов:
-        <a target="_blank" href="https://www.tampermonkey.net/documentation.php">tampermonkey.net/documentation.php</a>
+        <p class="bottom-note">
+            Подробнее о Метаданных пользовательских скриптов:
+            <a target="_blank" href="https://www.tampermonkey.net/documentation.php">tampermonkey.net/documentation.php</a>
+        </p>
     </section>
 
     <section class="slide" id="MetaName">
@@ -457,7 +500,7 @@
              ... и видим несколько логов
             <img src="./pictures/emoji/flushed-face.png" class="test-icon" alt=""/>
         </h2>
-        <div class="img-wrap" style="max-height: 350px">
+        <div class="img-wrap move-top" style="max-height: 350px">
             <img src="pictures/hello2x.png" alt=""/>
         </div>
     </section>
@@ -467,10 +510,12 @@
             <img src="./pictures/emoji/ghost.png" class="test-icon" alt=""/>
             Все дело в iframe
         </h2>
-        <div class="img-wrap" style="max-height: 350px">
+        <div class="img-wrap move-top" style="max-height: 340px;">
             <img src="pictures/frame.png" alt=""/>
         </div>
-        PS: Тут в хроме можно переключать контекст
+        <p class="bottom-note">
+            PS: Тут в хроме можно переключать контекст
+        </p>
     </section>
 
     <section class="slide" id="meta_include">
@@ -492,7 +537,7 @@
         <h2>
             Добавляем @noframes и проверяем
         </h2>
-        <div class="img-wrap next" style="max-height: 350px">
+        <div class="img-wrap next move-top" style="max-height: 350px">
             <img src="pictures/hello1x.png" alt=""/>
         </div>
     </section>
@@ -523,24 +568,26 @@
 
     <section class="slide" id="ContentScripts">
         <h2>
-            Content Scripts работает в своем контексте
+            Content Scripts работают в своем контексте
         </h2>
         <blockquote>
             ... Полноценный доступ есть только через к DOM дереву страницы.<br>
             С контент скрипта вы можете инициировать ивенты, изменять DOM.<br>
             <b>Даже можете добавлять script тег в страницу</b> ...<br>
         </blockquote>
-        <div class="img-wrap no-shadow" style="max-height: 450px; margin: 10px auto; width: 350px; ">
+        <div class="img-wrap no-shadow" style="max-height: 450px; margin: 10px auto auto auto; width: 390px; ">
             <img src="pictures/content-scripts.png" alt=""/>
         </div>
-        <a href="https://medium.com/@aleksanderzinewicz/google-chrome-extensions-%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0-fcb0dc0949d4">Aleks Zinevych. Google Chrome Extensions — Часть 1. Архитектура</a>
+        <p class="bottom-note" style="margin-bottom: 0px;">
+            <a href="https://medium.com/@aleksanderzinewicz/google-chrome-extensions-%D1%87%D0%B0%D1%81%D1%82%D1%8C-1-%D0%B0%D1%80%D1%85%D0%B8%D1%82%D0%B5%D0%BA%D1%82%D1%83%D1%80%D0%B0-fcb0dc0949d4">Aleks Zinevych. Google Chrome Extensions — Часть 1. Архитектура</a>
+        </p>
     </section>
 
     <section class="slide" id="InjectCode">
         <h2>
             Встраиваем код в страницу
         </h2>
-        <p>
+        <p class="note" style="line-height: 1.4em">
             В Greasemonkey можно использовать @grant GM.unsafeWindow.
             Tampermonkey сам пробрасывает переменные.
         </p>
@@ -558,12 +605,12 @@
     </section>
 
     <section class="slide" id="ButtonsQ">
-        <h2 class="shout">Как добавить кнопки на сайт с динамическим контентом?</h2>
+        <h2 class="shout">Как работать с динамическим контентом?</h2>
     </section>
 
     <section class="slide" id="mutation_observer">
         <h2>MutationObserver</h2>
-        <p>Помогает следить за изменением контента на странице</p>
+        <p class="note">Помогает следить за изменением контента на странице</p>
         <code class="code code_comment">
             searchGreenElements(document.body);
             <span></span>
@@ -584,8 +631,8 @@
 
     <section class="slide" id="MetaGrant">
         <h2>
+            Можно использовать API расширения
             <img src="./pictures/emoji/wrench.png" class="test-icon" alt=""/>
-            Да. Можно использовать API расширения.
         </h2>
         <code class="code code_comment">
             // Получение метаданных скрипта:
@@ -602,13 +649,14 @@
     </section>
 
     <section class="slide" id="meta_resource">
-        <h2>Запрос ресурсов с другого сайта</h2>
+        <h2>@grant GM.getResourceUrl</h2>
+        <p class="note">
+            Запрос ресурсов с другого сайта. Возвращает Data URL.
+        </p>
         <code class="code code_comment">
-            // ==UserScript==
-            // @name Image resource example
+            // ...
             // @resource logo ../icons/laptop.png
             // @grant GM.getResourceUrl
-            // ==/UserScript==
             <span></span>
             (async () => {
                 let img = document.createElement("img");
@@ -619,8 +667,15 @@
     </section>
 
     <section class="slide" id="meta_resource_xhr">
-        <h2>Запрос к другому сайту</h2>
+        <h2>@grant GM.xmlHttpRequest</h2>
+        <p class="note">
+            Позволяет делать запросы к другом сайтам
+        </p>
         <code class="code code_comment">
+            // ...
+            // @connect api.vk.com
+            // @grant GM.xmlHttpRequest
+            <span></span>
             GM.xmlHttpRequest({
               method: "GET",
               url: "http://api.vk.com/method/users.get",
@@ -632,7 +687,7 @@
     </section>
 
     <section class="slide" id="meta_resource_xhr_access">
-        <h2>Tampermonkey без @connect запретит</h2>
+        <h2>Tampermonkey запрещает лишние запросы</h2>
 
         <div class="img-wrap vertical" style="max-height: 350px; margin: auto;max-width: 90%;">
             <img src="pictures/xhr-access-1.png" alt="" style="margin-top: -60px;"/>
@@ -640,12 +695,12 @@
     </section>
 
     <section class="slide" id="ExButtonsQ">
-        <h2 class="shout">А можно кнопки не на страницу?</h2>
+        <h2 class="shout">Могу ли я управлять меню расширения?</h2>
     </section>
 
     <section class="slide" id="MenuEx">
         <h2>
-            Можно использовать меню расширения
+            В меню можно добавить команды
         </h2>
         <div class="img-wrap" style="max-height: 400px">
             <img src="./pictures/MenuEx.png" alt=""/>
@@ -669,7 +724,11 @@
         </code>
     </section>
 
-    <section class="slide" id="my-context-menu-ex">
+    <section class="slide" id="ContextMenuQ">
+        <h2 class="shout">А контекстным меню?</h2>
+    </section>
+
+    <section class="slide" id="ContextMenuExample">
         <h2>
             Можно в контекстное меню *
         </h2>
@@ -679,7 +738,7 @@
         <p>* - но только в Google Chrome</p>
     </section>
 
-    <section class="slide" id="context-menu">
+    <section class="slide" id="ContextMenuCode">
         <h2>
             @run-at context-menu
         </h2>
@@ -710,10 +769,10 @@
 
     <section class="slide" id="addEventListener">
         <h2>window.addEventListener + event.target</h2>
-        <p>Реагируем нужные нам действия:</p>
+        <p class="note">Реагируем нужные нам действия</p>
         <code class="code code_comment">
             window.addEventListener('keydown', function onKeyDown(event) {
-                if (event.target.classList.contains('support_message_input')) {
+                if (event.target.classList.contains('support_input')) {
                     showAndFilterHelpList(event.target);
                 }
             });
@@ -722,7 +781,7 @@
 
     <section class="slide" id="Proxy">
         <h2>Proxy, getter и setter</h2>
-        Ловим чтение и запись в обьектах:
+        <p class="note">Ловим чтение и запись в обьектах</p>
         <code class="code code_comment">
             Object.defineProperty(store, "adsLists", {
                 set: function() {
@@ -741,7 +800,7 @@
             <img src="./pictures/emoji/flying-saucer.png" class="test-icon" alt=""/>
             Оборачиваем функций
         </h2>
-        Заменяем аргументы и результаты функций:
+        <p class="note">Заменяем аргументы и результаты функций</p>
         <code class="code code_comment">
             ajax.post = (function replaceFunction(ajaxPost) {
                 return function ajaxPostFake() {
@@ -756,7 +815,7 @@
     </section>
 
     <section class="slide" id="Save">
-        <h2 class="shout">А куда сохранить?</h2>
+        <h2 class="shout">Куда можно сохранить скрипт?</h2>
     </section>
 
     <section class="slide" id="storage">
@@ -767,13 +826,13 @@
         <ol>
             <li><a href="https://openuserjs.org/" target="_blank">OpenUserJS</a></li>
             <li><a href="https://gist.github.com/" target="_blank">gist.github.com</a></li>
-            <li><a href="https://habr.com/ru/post/226053/" target="_blank">Альтернативы UserScripts.org</a></li>
+            <li><a href="https://www.tampermonkey.net/scripts.php" target="_blank">Альтернативы UserScripts.org</a></li>
             <li>На любом сайте с «*.user.js» в конце ссылки</li>
         </ol>
     </section>
 
     <section class="slide" id="Update">
-        <h2 class="shout">А как обновлять?</h2>
+        <h2 class="shout">А обновлять?</h2>
     </section>
 
     <section class="slide" id="UpdateMeta">
@@ -783,6 +842,9 @@
         <code class="code">
             // @updateURL https://openuserjs.org/....js
         </code>
+        <div class="img-wrap" style="max-height: 350px; overflow: hidden; z-index: -2;">
+            <img src="pictures/update.png" alt=""/>
+        </div>
     </section>
 
     <section class="slide" id="MoreUserScripts">
@@ -808,21 +870,27 @@
 
     <section class="slide splitImageView" id="iOS">
         <h2>
+            <img src="./pictures/icons/shortcuts.png" class="test-icon" alt=""/>
             Shortcut для iOS
         </h2>
-        <div style="width: 100%; height: 340px;">
-            <div class="img-wrap radius no-shadow height">
-                <img src="pictures/ios/cmd-view.jpg" alt="" style="margin-top: -70px; width: 350px"/>
+        <div style="width: 100%; height: 400px; overflow: hidden;">
+            <div class="img-wrap radius no-shadow outer-shadow height"  style="overflow: visible;">
+                <div style="width: 300px; height: 330px; overflow: hidden;">
+                    <img src="pictures/ios/cmd-view.jpg" alt=""/>
+                </div>
             </div>
-            <div class="img-wrap radius no-shadow height" style="overflow: visible;">
-                <img src="pictures/ios/cmd-run.jpg" alt="" style="margin-top: -160px; width: 250px"/>
+            <div class="img-wrap radius no-shadow outer-shadow height" style="overflow: visible;">
+                <div style="width: 300px; height: 330px; overflow: hidden;">
+                    <img src="pictures/ios/cmd-run.jpg" alt="" style="margin-top: -50px;"/>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="slide" id="Automator_AppleScript">
         <h2>
-            Automator
+            <img src="./pictures/icons/automator.png" class="test-icon" alt=""/>
+            Automator в Mac OS
         </h2>
         <div class="img-wrap no-shadow" style="max-height: 450px;  margin-top: -40px">
             <img src="pictures/Automator.png" alt=""/>
@@ -847,22 +915,17 @@
         </div>
     </section>
 
-    <section class="slide" id="Done">
-        <h2 class="shout">Подведем итоги</h2>
-    </section>
-
     <section class="slide" id="Done2">
         <h2>
-            Пользовательские скрипты
+            Подведем итоги
         </h2>
         <ul>
-            <li>Работают в расширениях со своим API</li>
-            <li>Помогают в автоматизации</li>
-            <li>Помогают с чужими сайтами</li>
-            <li>Живут и обновляются</li>
-            <li>Бывают в закладках</li>
-            <li>Не только в JavaScript</li>
-            <li>И не только в браузерах</li>
+            <li class="next">Это просто скрипты с описанием</li>
+            <li class="next">Имеют дополнительное API за счет расширений</li>
+            <li class="next">Помогают автоматизировать и быстро реализовывать свои хотелки</li>
+            <li class="next">Умеют обновляться</li>
+            <li class="next">Бывают в закладках</li>
+            <li class="next">Это не только JavaScript и не только в браузерах</li>
         </ul>
     </section>
 
